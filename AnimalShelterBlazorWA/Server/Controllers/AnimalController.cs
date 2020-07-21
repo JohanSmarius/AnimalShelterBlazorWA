@@ -19,10 +19,16 @@ namespace AnimalShelterBlazorWA.Server.Controllers
         }
 
         [HttpGet]
-        [Produces("application/json")]
         public IEnumerable<Animal> Get()
         {
             return _context.Animals.ToArray();
+        }
+
+
+        [HttpGet("{Id}")]
+        public Animal Get(int id)
+        {
+            return _context.Animals.SingleOrDefault(a => a.Id == id);
         }
 
         [HttpDelete("{id}")]
@@ -34,6 +40,30 @@ namespace AnimalShelterBlazorWA.Server.Controllers
             {
                 _context.Animals.Remove(animal);
                 _context.SaveChanges();
+            }
+
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult Put(int id, [FromBody] Animal animal)
+        {
+            var animalInStore = _context.Animals.SingleOrDefault(a => a.Id == animal.Id);
+
+            if (animalInStore != null)
+            {
+                animalInStore.Name = animal.Name;
+                animalInStore.AnimalKind = animal.AnimalKind;
+                animalInStore.DateOfBirth = animal.DateOfBirth;
+                animalInStore.EstimatedAge = animal.EstimatedAge;
+                animalInStore.Gender = animal.Gender;
+                animalInStore.PictureUrl = animal.PictureUrl;
+
+                _context.SaveChanges();
+            }
+            else
+            {
+                return BadRequest();
             }
 
             return Ok();

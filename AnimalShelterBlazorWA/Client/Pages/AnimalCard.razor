@@ -19,7 +19,7 @@
                 @: I'm a @(CurrentAnimal.Gender == model.Gender.Male?"male":"female") cat of @CurrentAnimal.Age years old.
             }
         </p>
-        <a href="/AnimalDetails/@CurrentAnimal.Id" class="btn btn-primary">Go somewhere</a>
+        <a href="/animaldetail/@CurrentAnimal.Id" class="btn btn-primary">Details</a>
 
         
         <button class="btn btn-primary" @onclick="Adopt">Adopt</button>
