@@ -6,6 +6,7 @@
 
 @attribute [Authorize]
 @inject HttpClient Http
+@inject IJSRuntime JsRuntime 
 
 
 <h3>Animals</h3>
@@ -17,7 +18,7 @@
     @foreach (var animal in AnimalsInShelter)
     {
         <div class="col mb-4">
-            <AnimalCard CurrentAnimal="animal" />
+            <AnimalCard CurrentAnimal="animal" OnAnimalAdopted="AdoptAnimal"/>
         </div>
     }
 </div>
@@ -30,86 +31,41 @@
 
     protected override async Task OnInitializedAsync()
     {
-        AnimalsInShelter.Add(new model.Animal
+        await GetAllAnimals();
+    }
+
+
+    private async Task AdoptAnimal(model.Animal animalToAdopt)
+    {
+        // Confirm
+        var confirmed = await JsRuntime.InvokeAsync<bool>("animalshelterjavascriptfunctions.confirm", $"Are you sure you want to {animalToAdopt.Name} to be adopted");
+
+        if (confirmed)
         {
-            Id = 1,
-            Name = "Max",
-            AnimalKind = model.AnimalKind.Dog,
-            EstimatedAge = 1,
-            PictureUrl = "https://cdn.pixabay.com/photo/2017/06/24/09/13/dog-2437110__340.jpg",
-            Gender = model.Gender.Male
-        });
+            // Delete the animal
+            await Http.DeleteAsync($"api/animal/{animalToAdopt.Id}");
 
-        AnimalsInShelter.Add(new model.Animal
-        {
-            Id = 2,
-            Name = "Kitty",
-            AnimalKind = model.AnimalKind.Cat,
-            DateOfBirth = new DateTime(2018, 01, 30),
-            PictureUrl = "https://cdn.pixabay.com/photo/2014/04/13/20/49/cat-323262__340.jpg",
-            Gender = model.Gender.Female
-        });
+            // Get a new fresh list.
+            await GetAllAnimals();
+        }
 
-        AnimalsInShelter.Add(new model.Animal
-        {
-            Id = 3,
-            Name = "Lucy",
-            AnimalKind = model.AnimalKind.Dog,
-            EstimatedAge = 2,
-            PictureUrl = "https://cdn.pixabay.com/photo/2018/03/18/18/06/australian-shepherd-3237735__340.jpg",
-            Gender = model.Gender.Female
+    }
 
-        });
-
-        AnimalsInShelter.Add(new model.Animal
-        {
-            Id = 4,
-            Name = "Charlie",
-            AnimalKind = model.AnimalKind.Dog,
-            EstimatedAge = 3,
-            PictureUrl = "https://cdn.pixabay.com/photo/2017/10/02/21/56/dog-2810484__340.jpg",
-            Gender = model.Gender.Male
-
-        });
-
-
-        AnimalsInShelter.Add(new model.Animal
-        {
-            Id = 5,
-            Name = "Simba",
-            AnimalKind = model.AnimalKind.Cat,
-            EstimatedAge = 1,
-            PictureUrl = "https://cdn.pixabay.com/photo/2017/11/09/21/41/cat-2934720__340.jpg",
-            Gender = model.Gender.Female
-        });
-
-
-        AnimalsInShelter.Add(new model.Animal
-        {
-            Id = 6,
-            Name = "Sammy",
-            AnimalKind = model.AnimalKind.Cat,
-            EstimatedAge = 6,
-            PictureUrl = "https://cdn.pixabay.com/photo/2017/03/14/14/49/cat-2143332__340.jpg",
-            Gender = model.Gender.Male
-        });
+    private async Task GetAllAnimals()
+    {
 
         try
         {
-            var response = await Http.GetAsync("Animal");
+            var response = await Http.GetFromJsonAsync<model.Animal[]>("api/Animal");
+            AnimalsInShelter = response.ToList();
         }
         catch (AccessTokenNotAvailableException exception)
         {
             exception.Redirect();
         }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
-        }
-
-
 
     }
+
 
 
 }

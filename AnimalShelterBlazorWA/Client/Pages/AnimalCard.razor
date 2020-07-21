@@ -32,13 +32,16 @@
     [Parameter]
     public model.Animal CurrentAnimal { get; set; }
 
+    [Parameter]
+    public EventCallback<model.Animal> OnAnimalAdopted { get; set; }
+
     protected override void OnInitialized()
     {
     }
 
     private void Adopt()
     {
-        Console.WriteLine("Adopt this animal");
+        OnAnimalAdopted.InvokeAsync(CurrentAnimal);
     }
 
 
