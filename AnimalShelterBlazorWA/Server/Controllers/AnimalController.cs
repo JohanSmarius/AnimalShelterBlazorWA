@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AnimalShelter.Shared;
 using AnimalShelterBlazorWA.Server.Data;
+using AnimalShelterBlazorWA.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

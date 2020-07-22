@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AnimalShelter.Shared
+﻿namespace AnimalShelterBlazorWA.Shared
 {
     public enum AnimalKind
     {

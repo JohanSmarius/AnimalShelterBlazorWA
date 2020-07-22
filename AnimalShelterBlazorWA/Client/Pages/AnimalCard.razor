@@ -1,8 +1,7 @@
 ﻿@page "/animalcard"
-
-@using model = AnimalShelter.Shared
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using System.ComponentModel.DataAnnotations
+@using AnimalShelterBlazorWA.Shared
 
 
 <div class="card" style="width: 18rem;">
@@ -10,13 +9,13 @@
     <div class="card-body">
         <h5 class="card-title">@CurrentAnimal.Name</h5>
         <p class="card-text">
-            @if (CurrentAnimal.AnimalKind == model.AnimalKind.Dog)
+            @if (CurrentAnimal.AnimalKind == AnimalKind.Dog)
             {
-                @: I'm a @(CurrentAnimal.Gender == model.Gender.Male?"male":"female") dog of @CurrentAnimal.Age years old.
+                @: I'm a @(CurrentAnimal.Gender == Gender.Male?"male":"female") dog of @CurrentAnimal.Age years old.
             }
             else
             {
-                @: I'm a @(CurrentAnimal.Gender == model.Gender.Male?"male":"female") cat of @CurrentAnimal.Age years old.
+                @: I'm a @(CurrentAnimal.Gender == Gender.Male?"male":"female") cat of @CurrentAnimal.Age years old.
             }
         </p>
         <a href="/animaldetail/@CurrentAnimal.Id" class="btn btn-primary">Details</a>
@@ -30,10 +29,10 @@
 @code {
 
     [Parameter]
-    public model.Animal CurrentAnimal { get; set; }
+    public Animal CurrentAnimal { get; set; }
 
     [Parameter]
-    public EventCallback<model.Animal> OnAnimalAdopted { get; set; }
+    public EventCallback<Animal> OnAnimalAdopted { get; set; }
 
     protected override void OnInitialized()
     {

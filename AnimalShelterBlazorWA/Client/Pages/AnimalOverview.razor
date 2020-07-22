@@ -1,8 +1,9 @@
 ﻿@page "/animaloverview"
 
-@using model = AnimalShelter.Shared
+@using model = AnimalShelterBlazorWA.Shared
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using Microsoft.AspNetCore.Authorization
+@using AnimalShelterBlazorWA.Shared
 
 @attribute [Authorize]
 @inject HttpClient Http
@@ -28,7 +29,7 @@
 
 @code {
 
-    private List<model.Animal> AnimalsInShelter = new List<model.Animal>();
+    private List<Animal> AnimalsInShelter = new List<Animal>();
 
     [Inject]
     private NavigationManager navigationManager { get; set; }
@@ -40,7 +41,7 @@
     }
 
 
-    private async Task AdoptAnimal(model.Animal animalToAdopt)
+    private async Task AdoptAnimal(Animal animalToAdopt)
     {
         // Confirm
         var confirmed = await JsRuntime.InvokeAsync<bool>("animalshelterjavascriptfunctions.confirm", $"Are you sure you want {animalToAdopt.Name} to be adopted?");
@@ -61,7 +62,7 @@
 
         try
         {
-            var response = await Http.GetFromJsonAsync<model.Animal[]>("api/Animal");
+            var response = await Http.GetFromJsonAsync<Animal[]>("api/Animal");
             AnimalsInShelter = response.ToList();
         }
         catch (AccessTokenNotAvailableException exception)

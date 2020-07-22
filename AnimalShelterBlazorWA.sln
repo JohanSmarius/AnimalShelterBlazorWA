@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30309.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalShelterBlazorWA.Server", "AnimalShelterBlazorWA\Server\AnimalShelterBlazorWA.Server.csproj", "{46D656E9-E692-4FD8-98B3-B5865FFFD69B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalShelterBlazorWA.Server", "AnimalShelterBlazorWA\Server\AnimalShelterBlazorWA.Server.csproj", "{46D656E9-E692-4FD8-98B3-B5865FFFD69B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalShelterBlazorWA.Client", "AnimalShelterBlazorWA\Client\AnimalShelterBlazorWA.Client.csproj", "{4BEEB69D-FB12-4802-9120-E6B6BAED2C2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalShelterBlazorWA.Client", "AnimalShelterBlazorWA\Client\AnimalShelterBlazorWA.Client.csproj", "{4BEEB69D-FB12-4802-9120-E6B6BAED2C2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalShelterBlazorWA.Shared", "AnimalShelterBlazorWA\Shared\AnimalShelterBlazorWA.Shared.csproj", "{6A5164F6-AD9E-4C5E-A1E6-807A157167AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalShelterBlazorWA.Shared", "AnimalShelterBlazorWA\Shared\AnimalShelterBlazorWA.Shared.csproj", "{6A5164F6-AD9E-4C5E-A1E6-807A157167AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

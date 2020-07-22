@@ -1,10 +1,11 @@
 ﻿@page "/animaldetail";
 @page "/animaldetail/{Id:int}"
 
-@using model = AnimalShelter.Shared
+@using model = AnimalShelterBlazorWA.Shared
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using System.Runtime.CompilerServices
+@using AnimalShelterBlazorWA.Shared
 
 @attribute [Authorize]
 @inject HttpClient Http
@@ -72,7 +73,7 @@
     public int? Id { get; set; }
 
 
-    private model.Animal Animal { get; set; } = new model.Animal();
+    private Animal Animal { get; set; } = new Animal();
 
 
     private async Task HandleValidSubmit()
@@ -94,7 +95,7 @@
         {
             try
             {
-                Animal = await Http.GetFromJsonAsync<model.Animal>($"api/animal/{Id}");
+                Animal = await Http.GetFromJsonAsync<Animal>($"api/animal/{Id}");
 
                 Console.WriteLine(Animal.Name);
             }
@@ -115,7 +116,7 @@
 
         try
         {
-            var response = await Http.PutAsJsonAsync<model.Animal>($"api/Animal/{Animal.Id}", Animal);
+            var response = await Http.PutAsJsonAsync<Animal>($"api/Animal/{Animal.Id}", Animal);
 
             MoveToOverview();
         }
@@ -129,7 +130,7 @@
     {
         try
         {
-            var response = await Http.PostAsJsonAsync<model.Animal>("api/Animal", Animal);
+            var response = await Http.PostAsJsonAsync<Animal>("api/Animal", Animal);
 
             MoveToOverview();
         }

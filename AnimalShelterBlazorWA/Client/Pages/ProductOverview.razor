@@ -1,0 +1,70 @@
+﻿@page "/productoverview"
+
+@using model = AnimalShelterBlazorWA.Shared
+@using System.Net
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+<h3>ProductOverview</h3>
+
+<table class="table table-striped">
+    <thead>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Vat %</th>
+    <th>Net price</th>
+    <th></th>
+    </thead>
+    <tbody>
+
+        @foreach (var product in availableProducts)
+        {
+            <ProductListRow Product="product" />
+        }
+
+    </tbody>
+
+</table>
+
+
+<button class="btn btn-primary" @onclick="AddProduct">Add Product</button>
+
+
+@code {
+
+    [Inject]
+    NavigationManager navigationManager { get; set; }
+
+    [Inject]
+    HttpClient Http { get; set; }
+
+    private List<model.Product> availableProducts = new List<model.Product>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetAllProducts();
+    }
+
+    private async Task GetAllProducts()
+    {
+
+        try
+        {
+            var response = await Http.GetFromJsonAsync<model.Product[]>("api/Product");
+            availableProducts = response.ToList();
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+    }
+
+
+
+    private void AddProduct()
+    {
+        navigationManager.NavigateTo("/ProductDetail");
+    }
+
+
+}

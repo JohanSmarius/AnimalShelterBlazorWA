@@ -1,0 +1,31 @@
+﻿@using AnimalShelterBlazorWA.Shared
+
+
+    <tr>
+        <td>@Product.Name</td>
+        <td>@Product.Price</td>
+        <td>@Product.VatPercentage</td>
+        <td>@Product.NetPrice</td>
+        <td><button type="button" class="btn btn-primary" @onclick="ShowDetails">Details</button> <button @onclick="DeleteProduct" class="btn btn-danger">Delete</button></td>
+    </tr>
+
+
+@code {
+
+    [Parameter]
+    public Product Product { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+
+    private void ShowDetails()
+    {
+       // NavigationManager.NavigateTo($"/ProductDetails/{Product.Id}");
+    }
+
+    private void DeleteProduct()
+    {
+    }
+
+}
