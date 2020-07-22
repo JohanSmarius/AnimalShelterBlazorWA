@@ -37,11 +37,13 @@ namespace AnimalShelter.Shared
 
         }
 
+        [Range(0, 20)]
         public int? EstimatedAge { get; set; }
 
         [Required]
         public AnimalKind AnimalKind { get; set; }
 
+        [Required]
         public string PictureUrl { get; set; }
 
         public Gender Gender { get; set; }
