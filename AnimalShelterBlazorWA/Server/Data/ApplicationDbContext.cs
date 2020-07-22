@@ -8,13 +8,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AnimalShelter.Shared;
+using AnimalShelterBlazorWA.Shared;
 
 namespace AnimalShelterBlazorWA.Server.Data
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
         public DbSet<Animal> Animals { get; set; }
-        
+
+        public DbSet<Product> Products { get; set; }
+
 
         public ApplicationDbContext(
             DbContextOptions options,
@@ -87,8 +90,34 @@ namespace AnimalShelterBlazorWA.Server.Data
                 Gender = Gender.Male
             });
 
+            builder.Entity<Product>().HasData(new Product
+            {
+                Id = 1,
+                Name = "Dogfood",
+                Price = 10.99m,
+                VatPercentage = 21,
+                ProductImage = "https://nl.m.wikipedia.org/wiki/Bestand:Hundefutter.jpg"
+            });
+
+            builder.Entity<Product>().HasData(new Product
+            {
+                Id = 2,
+                Name = "Catfood",
+                Price = 8.99m,
+                VatPercentage = 21,
+                ProductImage =
+                    "https://upload.wikimedia.org/wikipedia/commons/1/16/Whiskas_cat%27s_petfood_with_chicken_dry.jpg"
+            });
+
+            builder.Entity<Product>().HasData(new Product
+            {
+                Id = 3,
+                Name = "Cat litter 50 liter",
+                Price = 15.12m,
+                VatPercentage = 21,
+                ProductImage = "https://www.publicdomainpictures.net/pictures/30000/velka/cat-litter.jpg"
+            });
+
         }
-
-
     }
 }

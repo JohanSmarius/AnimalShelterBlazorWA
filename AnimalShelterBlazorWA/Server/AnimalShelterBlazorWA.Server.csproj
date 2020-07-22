@@ -6,6 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\20200722195054_AddedProduct.cs" />
+    <Compile Remove="Data\Migrations\20200722195054_AddedProduct.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200722195433_AddedProduct.cs" />
+    <Compile Remove="Data\Migrations\20200722195433_AddedProduct.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200722195552_AddedProduct.cs" />
+    <Compile Remove="Data\Migrations\20200722195552_AddedProduct.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="3.2.1" />
   </ItemGroup>
 
