@@ -2,11 +2,12 @@
 using System.Linq;
 using AnimalShelter.Shared;
 using AnimalShelterBlazorWA.Server.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AnimalShelterBlazorWA.Server.Controllers
 {
- //   [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AnimalController : ControllerBase
