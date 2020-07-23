@@ -115,10 +115,14 @@
     private async Task UpdateAnimal()
     {
         await AnimalService.Update(Animal);
+
+        MoveToOverview();
     }
 
     private async Task CreateAnimal()
     {
         await AnimalService.Add(Animal);
+
+        MoveToOverview();
     }
 }

@@ -1,11 +1,13 @@
 ﻿@page "/productdetail"
 @page "/productdetail/{Id:int}"
 
-
 @using AnimalShelterBlazorWA.Shared
 @using System.Net
 @using AnimalShelterBlazorWA.Client.Services
+@using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+@attribute [Authorize]
 
 <h3>Product Detail</h3>
 
