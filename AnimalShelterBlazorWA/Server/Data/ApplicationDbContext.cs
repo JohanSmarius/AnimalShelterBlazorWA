@@ -95,7 +95,7 @@ namespace AnimalShelterBlazorWA.Server.Data
                 Name = "Dogfood",
                 Price = 10.99m,
                 VatPercentage = 21,
-                ProductImage = "https://nl.m.wikipedia.org/wiki/Bestand:Hundefutter.jpg"
+                ProductImageUrl = "https://upload.wikimedia.org/wikipedia/commons/4/4f/Hundefutter.jpg"
             });
 
             builder.Entity<Product>().HasData(new Product
@@ -104,7 +104,7 @@ namespace AnimalShelterBlazorWA.Server.Data
                 Name = "Catfood",
                 Price = 8.99m,
                 VatPercentage = 21,
-                ProductImage =
+                ProductImageUrl = 
                     "https://upload.wikimedia.org/wikipedia/commons/1/16/Whiskas_cat%27s_petfood_with_chicken_dry.jpg"
             });
 
@@ -114,7 +114,7 @@ namespace AnimalShelterBlazorWA.Server.Data
                 Name = "Cat litter 50 liter",
                 Price = 15.12m,
                 VatPercentage = 21,
-                ProductImage = "https://www.publicdomainpictures.net/pictures/30000/velka/cat-litter.jpg"
+                ProductImageUrl = "https://www.publicdomainpictures.net/pictures/30000/velka/cat-litter.jpg"
             });
 
         }

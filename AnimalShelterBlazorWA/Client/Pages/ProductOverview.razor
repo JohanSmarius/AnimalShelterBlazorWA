@@ -18,7 +18,7 @@
 
         @foreach (var product in availableProducts)
         {
-            <ProductListRow Product="product" />
+            <ProductListRow Product="product" OnProductDeleted="OnDeleteProduct"/>
         }
 
     </tbody>
@@ -36,6 +36,9 @@
 
     [Inject]
     HttpClient Http { get; set; }
+
+    [Inject]
+    IJSRuntime JsRuntime { get; set; }
 
     private List<model.Product> availableProducts = new List<model.Product>();
 
@@ -59,12 +62,27 @@
 
     }
 
-
-
     private void AddProduct()
     {
         navigationManager.NavigateTo("/ProductDetail");
     }
+
+    private async Task OnDeleteProduct(model.Product product)
+    {
+        // Confirm
+        var confirmed = await JsRuntime.InvokeAsync<bool>("animalshelterjavascriptfunctions.confirm", $"Are you sure you want to delete {product.Name}?");
+
+        if (confirmed)
+        {
+            // Delete the animal
+            await Http.DeleteAsync($"api/product/{product.Id}");
+
+            // Get a new fresh list.
+            await GetAllProducts();
+        }
+    }
+
+
 
 
 }

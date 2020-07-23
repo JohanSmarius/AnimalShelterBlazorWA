@@ -18,14 +18,19 @@
     [Inject]
     public NavigationManager NavigationManager { get; set; }
 
+    [Parameter]
+    public EventCallback<Product> OnProductDeleted { get; set; }
+
+
 
     private void ShowDetails()
     {
-       // NavigationManager.NavigateTo($"/ProductDetails/{Product.Id}");
+       NavigationManager.NavigateTo($"/ProductDetail/{Product.Id}");
     }
 
     private void DeleteProduct()
     {
+        OnProductDeleted.InvokeAsync(Product);
     }
 
 }

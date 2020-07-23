@@ -22,10 +22,11 @@ namespace AnimalShelterBlazorWA.Shared
         [Range(0, 100)]
         public int VatPercentage { get; set; }
 
-        [NotMapped] public decimal NetPrice => Price * (1 + (VatPercentage / 100));
+        [NotMapped] 
+        public decimal NetPrice => Price * (1 + (VatPercentage / (decimal)100));
 
         [Required]
-        public string ProductImage { get; set; }
+        public string ProductImageUrl { get; set; }
 
     }
 }

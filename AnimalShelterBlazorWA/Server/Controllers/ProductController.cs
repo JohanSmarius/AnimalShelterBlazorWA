@@ -56,7 +56,7 @@ namespace AnimalShelterBlazorWA.Server.Controllers
                 productInStore.Name = product.Name;
                 productInStore.Price = product.Price;
                 productInStore.VatPercentage = product.VatPercentage;
-                productInStore.ProductImage = product.ProductImage;
+                productInStore.ProductImageUrl = product.ProductImageUrl;
 
                 _context.SaveChanges();
             }
