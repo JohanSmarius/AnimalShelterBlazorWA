@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Text;
+using AnimalShelterBlazorWA.Client.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,9 @@ namespace AnimalShelterBlazorWA.Client
 
             // Supply HttpClient instances that include access tokens when making requests to the server project
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("AnimalShelterBlazorWA.ServerAPI"));
+
+            builder.Services.AddScoped<IAnimalService, AnimalService>();
+            builder.Services.AddScoped<IProductService, ProductService>();
 
             builder.Services.AddApiAuthorization();
 

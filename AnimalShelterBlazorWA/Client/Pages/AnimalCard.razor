@@ -34,10 +34,6 @@
     [Parameter]
     public EventCallback<Animal> OnAnimalAdopted { get; set; }
 
-    protected override void OnInitialized()
-    {
-    }
-
     private void Adopt()
     {
         OnAnimalAdopted.InvokeAsync(CurrentAnimal);

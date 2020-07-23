@@ -4,6 +4,7 @@
 
 @using AnimalShelterBlazorWA.Shared
 @using System.Net
+@using AnimalShelterBlazorWA.Client.Services
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 
 <h3>Product Detail</h3>
@@ -58,32 +59,22 @@
 
     [Parameter]
     public int? Id { get; set; }
-
-
+    
     public Product Product { get; set; } = new Product();
 
     protected override async Task OnParametersSetAsync()
     {
         if (Id.HasValue)
         {
-            try
-            {
-                Product = await Http.GetFromJsonAsync<Product>($"api/product/{Id}");
-            }
-            catch (AccessTokenNotAvailableException exception)
-            {
-                exception.Redirect();
-            }
+            Product = await ProductService.GetProduct(Id.Value);
         }
     }
-
 
     [Inject]
     private NavigationManager navigationManager { get; set; }
 
-
     [Inject]
-    private HttpClient Http { get; set; }
+    private IProductService ProductService { get; set; }
 
     private async Task HandleValidSubmit()
     {
@@ -105,32 +96,16 @@
 
     private async Task UpdateProduct()
     {
-        try
-        {
-            var response = await Http.PutAsJsonAsync<Product>($"api/Product/{Product.Id}", Product);
+        await ProductService.Update(Product);
 
-            MoveToOverview();
-        }
-        catch (AccessTokenNotAvailableException exception)
-        {
-            exception.Redirect();
-        }
+        MoveToOverview();
     }
 
 
     private async Task CreateProduct()
     {
-        try
-        {
-            var response = await Http.PostAsJsonAsync<Product>("api/Product", Product);
-
-            MoveToOverview();
-        }
-        catch (AccessTokenNotAvailableException exception)
-        {
-            exception.Redirect();
-        }
-
+        await ProductService.Add(Product);
+        
+        MoveToOverview();
     }
-
 }

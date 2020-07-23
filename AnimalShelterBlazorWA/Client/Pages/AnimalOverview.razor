@@ -4,6 +4,7 @@
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using Microsoft.AspNetCore.Authorization
 @using AnimalShelterBlazorWA.Shared
+@using AnimalShelterBlazorWA.Client.Services
 
 @attribute [Authorize]
 @inject HttpClient Http
@@ -34,12 +35,13 @@
     [Inject]
     private NavigationManager navigationManager { get; set; }
 
+    [Inject]
+    public IAnimalService AnimalService { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         await GetAllAnimals();
     }
-
 
     private async Task AdoptAnimal(Animal animalToAdopt)
     {
@@ -49,27 +51,16 @@
         if (confirmed)
         {
             // Delete the animal
-            await Http.DeleteAsync($"api/animal/{animalToAdopt.Id}");
+            await AnimalService.Delete(animalToAdopt);
 
             // Get a new fresh list.
             await GetAllAnimals();
         }
-
     }
 
     private async Task GetAllAnimals()
     {
-
-        try
-        {
-            var response = await Http.GetFromJsonAsync<Animal[]>("api/Animal");
-            AnimalsInShelter = response.ToList();
-        }
-        catch (AccessTokenNotAvailableException exception)
-        {
-            exception.Redirect();
-        }
-
+        AnimalsInShelter = await AnimalService.GetAllAnimalsInShelter();
     }
 
     private void AddAnimal()

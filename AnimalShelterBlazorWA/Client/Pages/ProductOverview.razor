@@ -2,6 +2,7 @@
 
 @using model = AnimalShelterBlazorWA.Shared
 @using System.Net
+@using AnimalShelterBlazorWA.Client.Services
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 
 <h3>ProductOverview</h3>
@@ -33,9 +34,9 @@
 
     [Inject]
     NavigationManager navigationManager { get; set; }
-
+    
     [Inject]
-    HttpClient Http { get; set; }
+    IProductService ProductService { get; set; }
 
     [Inject]
     IJSRuntime JsRuntime { get; set; }
@@ -49,17 +50,7 @@
 
     private async Task GetAllProducts()
     {
-
-        try
-        {
-            var response = await Http.GetFromJsonAsync<model.Product[]>("api/Product");
-            availableProducts = response.ToList();
-        }
-        catch (AccessTokenNotAvailableException exception)
-        {
-            exception.Redirect();
-        }
-
+        availableProducts = await ProductService.GetAllProducts();
     }
 
     private void AddProduct()
@@ -75,7 +66,7 @@
         if (confirmed)
         {
             // Delete the animal
-            await Http.DeleteAsync($"api/product/{product.Id}");
+            await ProductService.Delete(product);
 
             // Get a new fresh list.
             await GetAllProducts();

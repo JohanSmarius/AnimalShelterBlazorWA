@@ -5,11 +5,13 @@
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using System.Runtime.CompilerServices
+@using AnimalShelterBlazorWA.Client.Services
 @using AnimalShelterBlazorWA.Shared
 
 @attribute [Authorize]
 @inject HttpClient Http
 @inject NavigationManager NavManager 
+@inject IAnimalService AnimalService
 
 <h3>AnimalDetail</h3>
 
@@ -101,14 +103,7 @@
     {
         if (Id.HasValue)
         {
-            try
-            {
-                Animal = await Http.GetFromJsonAsync<Animal>($"api/animal/{Id}");
-            }
-            catch (AccessTokenNotAvailableException exception)
-            {
-                exception.Redirect();
-            }
+            Animal = await AnimalService.GetAnimal(Id.Value);
         }
     }
 
@@ -119,35 +114,11 @@
 
     private async Task UpdateAnimal()
     {
-
-        try
-        {
-            var response = await Http.PutAsJsonAsync<Animal>($"api/Animal/{Animal.Id}", Animal);
-
-            MoveToOverview();
-        }
-        catch (AccessTokenNotAvailableException exception)
-        {
-            exception.Redirect();
-        }
+        await AnimalService.Update(Animal);
     }
 
     private async Task CreateAnimal()
     {
-        try
-        {
-            var response = await Http.PostAsJsonAsync<Animal>("api/Animal", Animal);
-
-            MoveToOverview();
-        }
-        catch (AccessTokenNotAvailableException exception)
-        {
-            exception.Redirect();
-        }
-
+        await AnimalService.Add(Animal);
     }
-
-
-
-
 }
